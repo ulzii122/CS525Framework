@@ -11,9 +11,10 @@ import framework.DAOFacade;
 import framework.model.IAccount;
 import framework.model.ICustomer;
 import framework.model.IEntry;
+import framework.model.IObserver;
 
 @Entity
-public class Account implements IAccount {
+public class Account implements IAccount, IObserver {
 	@Id
 	public ObjectId id;
 	private String accountNum = "";

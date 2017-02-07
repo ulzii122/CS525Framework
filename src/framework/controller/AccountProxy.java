@@ -28,11 +28,6 @@ public class AccountProxy implements IAccount {
 	}
 
 	@Override
-	public void addInterest(Double amount) {
-		acc.addInterest(amount);
-	}
-
-	@Override
 	public Double getBalance() {
 		return acc.getBalance();
 	}

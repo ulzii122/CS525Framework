@@ -16,4 +16,6 @@ public interface IFinco {
 	public Double withdraw(Double amount, String accNo);
 
 	public List<Customer> getCustomerList();
+
+	public void addInterest();
 }

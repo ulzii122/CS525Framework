@@ -64,4 +64,13 @@ public class Finco implements IFinco {
 
 		return custList;
 	}
+
+	@Override
+	public void addInterest() {
+		List<Account> accList = dataStore.find(Account.class).asList();
+		for (Account acc : accList) {
+			acc.addInterest(1d);
+			dataStore.save(acc);
+		}
+	}
 }

@@ -6,8 +6,6 @@ public interface IAccount {
 
 	public Double withdraw(Double amount);
 
-	public void addInterest(Double amount);
-
 	public Double getBalance();
 
 	public ICustomer getCustomer();

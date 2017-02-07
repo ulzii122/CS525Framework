@@ -298,6 +298,6 @@ public class BankFrm extends javax.swing.JFrame {
 	void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event) {
 		JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts",
 				"Add interest to all accounts", JOptionPane.WARNING_MESSAGE);
-
+		finco.addInterest();
 	}
 }
