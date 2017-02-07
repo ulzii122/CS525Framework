@@ -60,4 +60,10 @@ public class AccountProxy implements IAccount {
 	@Override
 	public void setAccountNum(String accountNum) {
 	}
+
+	@Override
+	public String getAccountNum() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

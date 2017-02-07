@@ -8,6 +8,12 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
+import framework.controller.Finco;
+import framework.controller.IFinco;
+import framework.model.IAccount;
+import framework.model.impl.Customer;
+import framework.model.impl.Person;
+
 /**
  * A basic JFC based application.
  */
@@ -28,9 +34,11 @@ public class BankFrm extends javax.swing.JFrame {
 	BankFrm myframe;
 	private Object rowdata[];
 	public int selection;
+	private IFinco finco;
 
 	public BankFrm() {
 		myframe = this;
+		finco = new Finco();
 
 		setTitle("Bank Application.");
 		setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
@@ -97,6 +105,19 @@ public class BankFrm extends javax.swing.JFrame {
 		JButton_Withdraw.addActionListener(lSymAction);
 		JButton_Addinterest.addActionListener(lSymAction);
 
+		for (Customer cust : finco.getCustomerList()) {
+			for (IAccount acc : cust.getAccList()) {
+				rowdata = new Object[6];
+				rowdata[0] = acc.getAccountNum();
+				rowdata[1] = cust.name;
+				rowdata[2] = cust.city;
+				rowdata[3] = (cust instanceof Person ? "P" : "C");
+				rowdata[4] = "Ch";
+				rowdata[5] = acc.getBalance();
+				model.addRow(rowdata);
+			}
+		}
+		JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
 	}
 
 	/*****************************************************
@@ -209,7 +230,6 @@ public class BankFrm extends javax.swing.JFrame {
 			JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
 			newaccount = false;
 		}
-
 	}
 
 	void JButtonCompAC_actionPerformed(java.awt.event.ActionEvent event) {
@@ -234,7 +254,6 @@ public class BankFrm extends javax.swing.JFrame {
 			JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
 			newaccount = false;
 		}
-
 	}
 
 	void JButtonDeposit_actionPerformed(java.awt.event.ActionEvent event) {

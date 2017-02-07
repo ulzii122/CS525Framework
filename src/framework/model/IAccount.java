@@ -15,4 +15,6 @@ public interface IAccount {
 	public void setCustomer(ICustomer cust);
 
 	public void setAccountNum(String accountNum);
+
+	public String getAccountNum();
 }

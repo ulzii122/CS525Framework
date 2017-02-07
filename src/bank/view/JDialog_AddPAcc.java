@@ -183,7 +183,7 @@ public class JDialog_AddPAcc extends javax.swing.JDialog {
 
 		Customer cust = new Person();
 		cust.city = JTextField_CT.getText();
-		cust.email = "";
+		cust.email = JTextField_EM.getText();
 		cust.name = JTextField_NAME.getText();
 		cust.numOfEmployee++;
 		cust.street = JTextField_STR.getText();

@@ -1,11 +1,17 @@
 package framework.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mongodb.morphia.Datastore;
 
 import framework.DAOFacade;
 import framework.model.IAccount;
 import framework.model.ICustomer;
 import framework.model.impl.Account;
+import framework.model.impl.Company;
+import framework.model.impl.Customer;
+import framework.model.impl.Person;
 
 public class Finco implements IFinco {
 
@@ -36,9 +42,10 @@ public class Finco implements IFinco {
 	@Override
 	public Double deposit(Double amount, String accNo) {
 		IAccount acc = dataStore.find(Account.class).field("accountNum").equal(accNo).get();
-		acc.deposit(amount);
+		Double currentBal = acc.deposit(amount);
 		dataStore.save(acc);
-		return null;
+
+		return currentBal;
 	}
 
 	@Override
@@ -49,5 +56,16 @@ public class Finco implements IFinco {
 
 	public static void main(String[] args) {
 
+	}
+
+	@Override
+	public List<Customer> getCustomerList() {
+		List<Customer> custList = new ArrayList<>();
+		List<Person> pList = dataStore.find(Person.class).asList();
+		List<Company> cList = dataStore.find(Company.class).asList();
+		custList.addAll(pList);
+		custList.addAll(cList);
+
+		return custList;
 	}
 }

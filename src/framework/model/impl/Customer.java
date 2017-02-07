@@ -38,4 +38,8 @@ public abstract class Customer implements ICustomer {
 	public void removeAccount(IAccount acc) {
 		accList.remove(acc);
 	}
+
+	public List<IAccount> getAccList() {
+		return accList;
+	}
 }
