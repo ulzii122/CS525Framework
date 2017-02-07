@@ -7,9 +7,7 @@ import framework.model.ICustomer;
 import framework.model.impl.Customer;
 
 public interface IFinco {
-	public void addPersonalAccount(ICustomer cust, IAccount acc);
-
-	public void addCompanyAccount(ICustomer cust, IAccount acc);
+	public void addAccount(ICustomer cust, IAccount acc);
 
 	public void addInterest(Double value);
 

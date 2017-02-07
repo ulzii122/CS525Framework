@@ -22,15 +22,9 @@ public class Finco implements IFinco {
 	}
 
 	@Override
-	public void addPersonalAccount(ICustomer cust, IAccount acc) {
+	public void addAccount(ICustomer cust, IAccount acc) {
 		dataStore.save(acc);
 		dataStore.save(cust);
-	}
-
-	@Override
-	public void addCompanyAccount(ICustomer cust, IAccount acc) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -42,7 +36,9 @@ public class Finco implements IFinco {
 	@Override
 	public Double deposit(Double amount, String accNo) {
 		IAccount acc = dataStore.find(Account.class).field("accountNum").equal(accNo).get();
-		Double currentBal = acc.deposit(amount);
+		// =========Adding responsibility in Runtime through Proxy Pattern:
+		IAccount proxy = new AccountProxy(acc);
+		Double currentBal = proxy.deposit(amount);
 		dataStore.save(acc);
 
 		return currentBal;

@@ -190,7 +190,7 @@ public class JDialog_AddPAcc extends javax.swing.JDialog {
 		cust.zip = JTextField_ZIP.getText();
 		cust.addAccount(acc);
 
-		finco.addPersonalAccount(cust, acc);
+		finco.addAccount(cust, acc);
 
 		dispose();
 	}
