@@ -37,8 +37,8 @@ public class Finco implements IFinco {
 	public Double deposit(Double amount, String accNo) {
 		IAccount acc = dataStore.find(Account.class).field("accountNum").equal(accNo).get();
 		// =========Adding responsibility in Runtime through Proxy Pattern:
-		IAccount proxy = new AccountProxy(acc);
-		Double currentBal = proxy.deposit(amount);
+		acc = new AccountProxy(acc);
+		Double currentBal = acc.deposit(amount);
 		dataStore.save(acc);
 
 		return currentBal;
