@@ -14,20 +14,13 @@ import framework.model.IEntry;
 public class Entry implements IEntry {
 	@Id
 	public ObjectId id;
-	private Date date = null;
+	private Date date = new Date();
 	private Double amount = 0d;
 	private String accountNum = "";
-	private TransactionType type = null;
+	private String type = "";
 	@Version
 	@Property("version")
 	private Long version;
-
-	public Entry(Double amount, String accountNum, TransactionType type) {
-		this.date = new Date();
-		this.amount = amount;
-		this.accountNum = accountNum;
-		this.type = type;
-	}
 
 	public Date getDate() {
 		return date;
@@ -41,7 +34,19 @@ public class Entry implements IEntry {
 		return accountNum;
 	}
 
-	public TransactionType getType() {
+	public String getType() {
 		return type;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	public void setAccountNum(String accountNum) {
+		this.accountNum = accountNum;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

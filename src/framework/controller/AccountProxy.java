@@ -1,7 +1,8 @@
-package framework.model.impl;
+package framework.controller;
 
 import framework.model.IAccount;
 import framework.model.ICustomer;
+import framework.model.impl.Company;
 
 public class AccountProxy implements IAccount {
 	private IAccount acc = null;
@@ -50,5 +51,13 @@ public class AccountProxy implements IAccount {
 	@Override
 	public ICustomer getCustomer() {
 		return null;
+	}
+
+	@Override
+	public void setCustomer(ICustomer cust) {
+	}
+
+	@Override
+	public void setAccountNum(String accountNum) {
 	}
 }

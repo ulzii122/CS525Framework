@@ -1,5 +1,8 @@
 package bank.view;
 
+import framework.controller.Finco;
+import framework.controller.IFinco;
+
 public class JDialog_Deposit extends javax.swing.JDialog {
 
 	/**
@@ -8,6 +11,7 @@ public class JDialog_Deposit extends javax.swing.JDialog {
 	private static final long serialVersionUID = 1L;
 	private BankFrm parentframe;
 	private String accnr;
+	private IFinco finco = new Finco();
 
 	public JDialog_Deposit(BankFrm parent, String aaccnr) {
 		super(parent);
@@ -75,7 +79,13 @@ public class JDialog_Deposit extends javax.swing.JDialog {
 	}
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event) {
-		parentframe.amountDeposit = JTextField_Deposit.getText();
+		if (JTextField_Deposit.getText() != null && !JTextField_Deposit.getText().trim().equals("")) {
+			parentframe.amountDeposit = JTextField_Deposit.getText();
+			Double deposit = Double.parseDouble(parentframe.amountDeposit);
+
+			Double currentamount = finco.deposit(deposit, accnr);
+			parentframe.model.setValueAt(String.valueOf(currentamount), parentframe.selection, 5);
+		}
 		dispose();
 	}
 

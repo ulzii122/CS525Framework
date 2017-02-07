@@ -1,11 +1,13 @@
 package framework.model.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
+import org.mongodb.morphia.annotations.Reference;
 import org.mongodb.morphia.annotations.Version;
 
 import framework.model.IAccount;
@@ -24,7 +26,8 @@ public abstract class Customer implements ICustomer {
 	public String city = "";
 	public String zip = "";
 	public String email = "";
-	public List<IAccount> accList = null;
+	@Reference("customer")
+	private List<IAccount> accList = new ArrayList<>();
 
 	@Override
 	public void addAccount(IAccount acc) {

@@ -4,17 +4,16 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
 import com.mongodb.MongoClient;
-import com.mongodb.client.MongoDatabase;
 
 public class DAOFacade {
 	private MongoClient db = null;
-	private Datastore db_common_Datastore;
-	private MongoDatabase db_common;
+	private Datastore datastore;
 	private Morphia morphia;
-	private final String DB_COMMON = "framework_db";
 	private static DAOFacade instance = null;
 
 	private DAOFacade() {
+		new ConfigFacade();
+
 		db = new MongoClient(ConfigFacade.MONGO_ADDR, ConfigFacade.MONGO_PORT);
 		morphia = getMorphia();
 	}
@@ -35,24 +34,18 @@ public class DAOFacade {
 			db.close();
 	}
 
-	public Datastore getCommonDb_Datastore() {
-		if (db_common_Datastore == null)
-			db_common_Datastore = getMorphia().createDatastore(db, DB_COMMON);
+	public Datastore getDatastore() {
+		if (datastore == null)
+			datastore = getMorphia().createDatastore(db, ConfigFacade.DB_NAME);
 
-		return db_common_Datastore;
-	}
-
-	public MongoDatabase getCommonDb() {
-		if (db_common == null)
-			db_common = db.getDatabase(DB_COMMON);
-
-		return db_common;
+		return datastore;
 	}
 
 	private Morphia getMorphia() {
 		if (morphia == null) {
 			morphia = new Morphia();
 			morphia.mapPackage("framework.model");
+			morphia.mapPackage("framework.model.impl");
 		}
 		return morphia;
 	}

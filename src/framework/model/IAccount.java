@@ -11,4 +11,8 @@ public interface IAccount {
 	public Double getBalance();
 
 	public ICustomer getCustomer();
+
+	public void setCustomer(ICustomer cust);
+
+	public void setAccountNum(String accountNum);
 }

@@ -20,13 +20,14 @@ public class BankFrm extends javax.swing.JFrame {
 	/****
 	 * init variables in the object
 	 ****/
-	String accountnr, clientName, street, city, zip, state, accountType, clientType, amountDeposit;
+	public String accountnr, clientName, street, city, zip, state, accountType, clientType, amountDeposit;
 	boolean newaccount;
-	private DefaultTableModel model;
+	public DefaultTableModel model;
 	private JTable JTable1;
 	private JScrollPane JScrollPane1;
 	BankFrm myframe;
 	private Object rowdata[];
+	public int selection;
 
 	public BankFrm() {
 		myframe = this;
@@ -238,7 +239,7 @@ public class BankFrm extends javax.swing.JFrame {
 
 	void JButtonDeposit_actionPerformed(java.awt.event.ActionEvent event) {
 		// get selected name
-		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
+		selection = JTable1.getSelectionModel().getMinSelectionIndex();
 		if (selection >= 0) {
 			String accnr = (String) model.getValueAt(selection, 0);
 
@@ -246,20 +247,12 @@ public class BankFrm extends javax.swing.JFrame {
 			JDialog_Deposit dep = new JDialog_Deposit(myframe, accnr);
 			dep.setBounds(430, 15, 275, 140);
 			dep.show();
-
-			// compute new amount
-			long deposit = Long.parseLong(amountDeposit);
-			String samount = (String) model.getValueAt(selection, 5);
-			long currentamount = Long.parseLong(samount);
-			long newamount = currentamount + deposit;
-			model.setValueAt(String.valueOf(newamount), selection, 5);
 		}
-
 	}
 
 	void JButtonWithdraw_actionPerformed(java.awt.event.ActionEvent event) {
 		// get selected name
-		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
+		selection = JTable1.getSelectionModel().getMinSelectionIndex();
 		if (selection >= 0) {
 			String accnr = (String) model.getValueAt(selection, 0);
 
