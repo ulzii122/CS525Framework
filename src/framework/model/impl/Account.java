@@ -17,11 +17,11 @@ import framework.model.IObserver;
 public class Account implements IAccount, IObserver {
 	@Id
 	public ObjectId id;
-	private String accountNum = "";
-	private Double currentBalance = 0d;
-	private Double interestRate = 0d;
+	protected String accountNum = "";
+	protected Double currentBalance = 0d;
+	protected Double interestRate = 0d;
 	@Reference
-	private ICustomer customer;
+	protected ICustomer customer;
 	@Version
 	@Property("version")
 	private Long version;

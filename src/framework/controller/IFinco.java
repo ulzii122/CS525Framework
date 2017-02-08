@@ -2,8 +2,11 @@ package framework.controller;
 
 import java.util.List;
 
+import org.mongodb.morphia.Datastore;
+
 import framework.model.IAccount;
 import framework.model.ICustomer;
+import framework.model.impl.Account;
 import framework.model.impl.Customer;
 
 public interface IFinco {
@@ -11,9 +14,13 @@ public interface IFinco {
 
 	public void addInterest(Double value);
 
-	public Double deposit(Double amount, String accNo);
+	public void addInterest(Double value, List<Account> accList);
 
-	public Double withdraw(Double amount, String accNo);
+	public Double deposit(Double amount, IAccount acc);
+
+	public Double withdraw(Double amount, IAccount acc);
 
 	public List<Customer> getCustomerList();
+
+	public Datastore getDataStore();
 }

@@ -17,7 +17,6 @@ import framework.model.ICustomer;
 public abstract class Customer implements ICustomer {
 	@Id
 	public ObjectId id;
-	public int numOfEmployee = 0;
 	@Version
 	@Property("version")
 	private Long version;

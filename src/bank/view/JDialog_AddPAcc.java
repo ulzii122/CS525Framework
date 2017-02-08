@@ -1,9 +1,10 @@
 package bank.view;
 
+import bank.model.CheckingAccount;
+import bank.model.SavingAccount;
 import framework.controller.Finco;
 import framework.controller.IFinco;
 import framework.model.IAccount;
-import framework.model.impl.Account;
 import framework.model.impl.Customer;
 import framework.model.impl.Person;
 
@@ -172,20 +173,25 @@ public class JDialog_AddPAcc extends javax.swing.JDialog {
 		parentframe.city = JTextField_CT.getText();
 		parentframe.zip = JTextField_ZIP.getText();
 		parentframe.state = JTextField_ST.getText();
+		parentframe.accountType = "Ch";
 		if (JRadioButton_Chk.isSelected())
 			parentframe.accountType = "Ch";
 		else
 			parentframe.accountType = "S";
 		parentframe.newaccount = true;
 
-		IAccount acc = new Account();
+		IAccount acc = null;
+		if (parentframe.accountType.equals("Ch"))
+			acc = new CheckingAccount();
+		else
+			acc = new SavingAccount();
+
 		acc.setAccountNum(JTextField_ACNR.getText());
 
 		Customer cust = new Person();
 		cust.city = JTextField_CT.getText();
 		cust.email = JTextField_EM.getText();
 		cust.name = JTextField_NAME.getText();
-		cust.numOfEmployee++;
 		cust.street = JTextField_STR.getText();
 		cust.zip = JTextField_ZIP.getText();
 		cust.addAccount(acc);

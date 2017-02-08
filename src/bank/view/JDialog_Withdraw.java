@@ -2,8 +2,11 @@ package bank.view;
 
 import javax.swing.JOptionPane;
 
+import bank.model.CheckingAccount;
+import bank.model.SavingAccount;
 import framework.controller.Finco;
 import framework.controller.IFinco;
+import framework.model.IAccount;
 
 public class JDialog_Withdraw extends javax.swing.JDialog {
 
@@ -83,7 +86,11 @@ public class JDialog_Withdraw extends javax.swing.JDialog {
 			parentframe.amountDeposit = JTextField_AMT.getText();
 			Double amount = Double.parseDouble(parentframe.amountDeposit);
 
-			Double currentamount = finco.withdraw(amount, accnr);
+			IAccount acc = finco.getDataStore().find(SavingAccount.class).field("accountNum").equal(accnr).get();
+			if (acc == null)
+				acc = finco.getDataStore().find(CheckingAccount.class).field("accountNum").equal(accnr).get();
+
+			Double currentamount = finco.withdraw(amount, acc);
 			parentframe.model.setValueAt(String.valueOf(currentamount), parentframe.selection, 5);
 
 			if (currentamount < 0) {

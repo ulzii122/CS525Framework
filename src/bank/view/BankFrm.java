@@ -1,6 +1,8 @@
 package bank.view;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -8,9 +10,12 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
+import bank.model.CheckingAccount;
+import bank.model.SavingAccount;
 import framework.controller.Finco;
 import framework.controller.IFinco;
 import framework.model.IAccount;
+import framework.model.impl.Account;
 import framework.model.impl.Customer;
 import framework.model.impl.Person;
 
@@ -112,7 +117,7 @@ public class BankFrm extends javax.swing.JFrame {
 				rowdata[1] = cust.name;
 				rowdata[2] = cust.city;
 				rowdata[3] = (cust instanceof Person ? "P" : "C");
-				rowdata[4] = "Ch";
+				rowdata[4] = (acc instanceof CheckingAccount ? "Ch" : "S");
 				rowdata[5] = acc.getBalance();
 				model.addRow(rowdata);
 			}
@@ -285,6 +290,10 @@ public class BankFrm extends javax.swing.JFrame {
 	void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event) {
 		JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts",
 				"Add interest to all accounts", JOptionPane.WARNING_MESSAGE);
-		finco.addInterest(1d);
+
+		List<Account> accList = new ArrayList<>();
+		accList.addAll(finco.getDataStore().find(CheckingAccount.class).asList());
+		accList.addAll(finco.getDataStore().find(SavingAccount.class).asList());
+		finco.addInterest(1d, accList);
 	}
 }

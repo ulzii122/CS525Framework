@@ -1,11 +1,20 @@
 package bank.view;
 
+import bank.model.CheckingAccount;
+import bank.model.SavingAccount;
+import framework.controller.Finco;
+import framework.controller.IFinco;
+import framework.model.IAccount;
+import framework.model.impl.Company;
+import framework.model.impl.Customer;
+
 public class JDialog_AddCompAcc extends javax.swing.JDialog {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private BankFrm parentframe;
+	private IFinco finco = new Finco();
 
 	public JDialog_AddCompAcc(BankFrm parent) {
 		super(parent);
@@ -135,13 +144,33 @@ public class JDialog_AddCompAcc extends javax.swing.JDialog {
 		parentframe.city = JTextField_CT.getText();
 		parentframe.zip = JTextField_ZIP.getText();
 		parentframe.state = JTextField_ST.getText();
+
+		parentframe.accountType = "Ch";
 		if (JRadioButton_Chk.isSelected())
 			parentframe.accountType = "Ch";
 		else
 			parentframe.accountType = "S";
 		parentframe.newaccount = true;
-		dispose();
 
+		IAccount acc = null;
+		if (parentframe.accountType.equals("Ch"))
+			acc = new CheckingAccount();
+		else
+			acc = new SavingAccount();
+
+		acc.setAccountNum(JTextField_ACNR.getText());
+
+		Customer cust = new Company();
+		cust.city = JTextField_CT.getText();
+		cust.email = JTextField_EM.getText();
+		cust.name = JTextField_NAME.getText();
+		cust.street = JTextField_STR.getText();
+		cust.zip = JTextField_ZIP.getText();
+		cust.addAccount(acc);
+
+		finco.addAccount(cust, acc);
+
+		dispose();
 	}
 
 	void JButtonCalcel_actionPerformed(java.awt.event.ActionEvent event) {

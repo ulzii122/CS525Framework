@@ -1,7 +1,10 @@
 package bank.view;
 
+import bank.model.CheckingAccount;
+import bank.model.SavingAccount;
 import framework.controller.Finco;
 import framework.controller.IFinco;
+import framework.model.IAccount;
 
 public class JDialog_Deposit extends javax.swing.JDialog {
 
@@ -83,7 +86,11 @@ public class JDialog_Deposit extends javax.swing.JDialog {
 			parentframe.amountDeposit = JTextField_Deposit.getText();
 			Double deposit = Double.parseDouble(parentframe.amountDeposit);
 
-			Double currentamount = finco.deposit(deposit, accnr);
+			IAccount acc = finco.getDataStore().find(SavingAccount.class).field("accountNum").equal(accnr).get();
+			if (acc == null)
+				acc = finco.getDataStore().find(CheckingAccount.class).field("accountNum").equal(accnr).get();
+
+			Double currentamount = finco.deposit(deposit, acc);
 			parentframe.model.setValueAt(String.valueOf(currentamount), parentframe.selection, 5);
 		}
 		dispose();
