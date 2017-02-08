@@ -1,5 +1,10 @@
 package bank.view;
 
+import javax.swing.JOptionPane;
+
+import framework.controller.Finco;
+import framework.controller.IFinco;
+
 public class JDialog_Withdraw extends javax.swing.JDialog {
 
 	/**
@@ -8,6 +13,7 @@ public class JDialog_Withdraw extends javax.swing.JDialog {
 	private static final long serialVersionUID = 1L;
 	private BankFrm parentframe;
 	private String accnr;
+	private IFinco finco = new Finco();
 
 	public JDialog_Withdraw(BankFrm parent, String aaccnr) {
 		super(parent);
@@ -73,7 +79,19 @@ public class JDialog_Withdraw extends javax.swing.JDialog {
 	}
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event) {
-		parentframe.amountDeposit = JTextField_AMT.getText();
+		if (JTextField_AMT.getText() != null && !JTextField_AMT.getText().trim().equals("")) {
+			parentframe.amountDeposit = JTextField_AMT.getText();
+			Double amount = Double.parseDouble(parentframe.amountDeposit);
+
+			Double currentamount = finco.withdraw(amount, accnr);
+			parentframe.model.setValueAt(String.valueOf(currentamount), parentframe.selection, 5);
+
+			if (currentamount < 0) {
+				JOptionPane.showMessageDialog(parentframe.JButton_Withdraw,
+						" Account " + accnr + " : balance is negative: $" + String.valueOf(currentamount) + " !",
+						"Warning: negative balance", JOptionPane.WARNING_MESSAGE);
+			}
+		}
 		dispose();
 	}
 

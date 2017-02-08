@@ -29,29 +29,35 @@ public class Finco implements IFinco {
 
 	@Override
 	public void addInterest(Double value) {
-		// TODO Auto-generated method stub
+		List<Account> accList = dataStore.find(Account.class).asList();
+		for (Account acc : accList)
+			acc.addInterest(value);
 
+		dataStore.save(accList);
 	}
 
 	@Override
 	public Double deposit(Double amount, String accNo) {
-		IAccount acc = dataStore.find(Account.class).field("accountNum").equal(accNo).get();
-		// =========Adding responsibility in Runtime through Proxy Pattern:
-		acc = new AccountProxy(acc);
+		IAccount acc = getAccount(accNo);
 		Double currentBal = acc.deposit(amount);
-		dataStore.save(acc);
 
 		return currentBal;
 	}
 
 	@Override
 	public Double withdraw(Double amount, String accNo) {
-		// TODO Auto-generated method stub
-		return null;
+		IAccount acc = getAccount(accNo);
+		Double currentBal = acc.withdraw(amount);
+
+		return currentBal;
 	}
 
-	public static void main(String[] args) {
+	private IAccount getAccount(String accNo) {
+		IAccount acc = dataStore.find(Account.class).field("accountNum").equal(accNo).get();
+		// =========Adding responsibility in Runtime through Proxy Pattern:
+		acc = new AccountProxy(acc);
 
+		return acc;
 	}
 
 	@Override
@@ -65,12 +71,7 @@ public class Finco implements IFinco {
 		return custList;
 	}
 
-	@Override
-	public void addInterest() {
-		List<Account> accList = dataStore.find(Account.class).asList();
-		for (Account acc : accList) {
-			acc.addInterest(1d);
-			dataStore.save(acc);
-		}
+	public static void main(String[] args) {
+
 	}
 }

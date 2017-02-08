@@ -279,25 +279,12 @@ public class BankFrm extends javax.swing.JFrame {
 			JDialog_Withdraw wd = new JDialog_Withdraw(myframe, accnr);
 			wd.setBounds(430, 15, 275, 140);
 			wd.show();
-
-			// compute new amount
-			long deposit = Long.parseLong(amountDeposit);
-			String samount = (String) model.getValueAt(selection, 5);
-			long currentamount = Long.parseLong(samount);
-			long newamount = currentamount - deposit;
-			model.setValueAt(String.valueOf(newamount), selection, 5);
-			if (newamount < 0) {
-				JOptionPane.showMessageDialog(JButton_Withdraw,
-						" Account " + accnr + " : balance is negative: $" + String.valueOf(newamount) + " !",
-						"Warning: negative balance", JOptionPane.WARNING_MESSAGE);
-			}
 		}
-
 	}
 
 	void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event) {
 		JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts",
 				"Add interest to all accounts", JOptionPane.WARNING_MESSAGE);
-		finco.addInterest();
+		finco.addInterest(1d);
 	}
 }

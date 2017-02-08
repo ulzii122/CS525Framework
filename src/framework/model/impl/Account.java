@@ -29,14 +29,18 @@ public class Account implements IAccount, IObserver {
 	@Override
 	public Double deposit(Double amount) {
 		currentBalance += amount;
+		DAOFacade.getInstance().getDatastore().save(this);
 		setEntry(amount, "DEPOSIT");
+
 		return currentBalance;
 	}
 
 	@Override
 	public Double withdraw(Double amount) {
 		currentBalance -= amount;
+		DAOFacade.getInstance().getDatastore().save(this);
 		setEntry(amount, "WITHDRAW");
+
 		return currentBalance;
 	}
 
