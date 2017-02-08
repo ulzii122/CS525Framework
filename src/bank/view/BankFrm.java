@@ -112,14 +112,16 @@ public class BankFrm extends javax.swing.JFrame {
 
 		for (Customer cust : finco.getCustomerList()) {
 			for (IAccount acc : cust.getAccList()) {
-				rowdata = new Object[6];
-				rowdata[0] = acc.getAccountNum();
-				rowdata[1] = cust.name;
-				rowdata[2] = cust.city;
-				rowdata[3] = (cust instanceof Person ? "P" : "C");
-				rowdata[4] = (acc instanceof CheckingAccount ? "Ch" : "S");
-				rowdata[5] = acc.getBalance();
-				model.addRow(rowdata);
+				if (acc instanceof CheckingAccount || acc instanceof SavingAccount) {
+					rowdata = new Object[6];
+					rowdata[0] = acc.getAccountNum();
+					rowdata[1] = cust.name;
+					rowdata[2] = cust.city;
+					rowdata[3] = (cust instanceof Person ? "P" : "C");
+					rowdata[4] = (acc instanceof CheckingAccount ? "Ch" : "S");
+					rowdata[5] = acc.getBalance();
+					model.addRow(rowdata);
+				}
 			}
 		}
 		JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
