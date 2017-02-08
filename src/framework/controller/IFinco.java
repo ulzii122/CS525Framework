@@ -1,6 +1,7 @@
 package framework.controller;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.mongodb.morphia.Datastore;
 
@@ -16,9 +17,9 @@ public interface IFinco {
 
 	public void addInterest(Double value, List<Account> accList);
 
-	public Double deposit(Double amount, IAccount acc);
+	public Double deposit(Double amount, IAccount acc, Predicate<Double> amountCheck);
 
-	public Double withdraw(Double amount, IAccount acc);
+	public Double withdraw(Double amount, IAccount acc, Predicate<Double> amountCheck);
 
 	public List<Customer> getCustomerList();
 

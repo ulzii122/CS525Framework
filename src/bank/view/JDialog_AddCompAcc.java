@@ -166,6 +166,7 @@ public class JDialog_AddCompAcc extends javax.swing.JDialog {
 		cust.name = JTextField_NAME.getText();
 		cust.street = JTextField_STR.getText();
 		cust.zip = JTextField_ZIP.getText();
+		cust.state = JTextField_ST.getText();
 		cust.addAccount(acc);
 
 		finco.addAccount(cust, acc);

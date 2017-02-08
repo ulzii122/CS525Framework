@@ -25,6 +25,7 @@ public abstract class Customer implements ICustomer {
 	public String city = "";
 	public String zip = "";
 	public String email = "";
+	public String state = "";
 	@Reference("customer")
 	private List<IAccount> accList = new ArrayList<>();
 

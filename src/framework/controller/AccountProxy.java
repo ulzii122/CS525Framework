@@ -1,5 +1,7 @@
 package framework.controller;
 
+import java.util.function.Predicate;
+
 import framework.model.IAccount;
 import framework.model.ICustomer;
 import framework.model.impl.Company;
@@ -12,17 +14,17 @@ public class AccountProxy implements IAccount {
 	}
 
 	@Override
-	public Double deposit(Double amount) {
-		Double bal = acc.deposit(amount);
-		sendEmailEngine(amount, bal);
+	public Double deposit(Double amount, Predicate<Double> amountCheck) {
+		Double bal = acc.deposit(amount, null);
+		sendEmailEngine(amountCheck, amount, bal);
 
 		return bal;
 	}
 
 	@Override
-	public Double withdraw(Double amount) {
-		Double bal = acc.withdraw(amount);
-		sendEmailEngine(amount, bal);
+	public Double withdraw(Double amount, Predicate<Double> amountCheck) {
+		Double bal = acc.withdraw(amount, null);
+		sendEmailEngine(amountCheck, amount, bal);
 
 		return bal;
 	}
@@ -32,10 +34,10 @@ public class AccountProxy implements IAccount {
 		return acc.getBalance();
 	}
 
-	private void sendEmailEngine(Double amount, Double bal) {
+	private void sendEmailEngine(Predicate<Double> amountCheck, Double amount, Double bal) {
 		if (acc.getCustomer() instanceof Company)
 			sendEmail();
-		else if (amount >= 500 || bal < 0)
+		else if (amountCheck.test(amount) || bal < 0)
 			sendEmail();
 	}
 

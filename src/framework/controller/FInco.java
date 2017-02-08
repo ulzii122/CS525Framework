@@ -2,6 +2,7 @@ package framework.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.mongodb.morphia.Datastore;
 
@@ -42,19 +43,19 @@ public class Finco implements IFinco {
 	}
 
 	@Override
-	public Double deposit(Double amount, IAccount acc) {
+	public Double deposit(Double amount, IAccount acc, Predicate<Double> amountCheck) {
 		// =========Adding responsibility in Runtime through Proxy Pattern:
 		acc = new AccountProxy(acc);
-		Double currentBal = acc.deposit(amount);
+		Double currentBal = acc.deposit(amount, amountCheck);
 
 		return currentBal;
 	}
 
 	@Override
-	public Double withdraw(Double amount, IAccount acc) {
+	public Double withdraw(Double amount, IAccount acc, Predicate<Double> amountCheck) {
 		// =========Adding responsibility in Runtime through Proxy Pattern:
 		acc = new AccountProxy(acc);
-		Double currentBal = acc.withdraw(amount);
+		Double currentBal = acc.withdraw(amount, amountCheck);
 
 		return currentBal;
 	}

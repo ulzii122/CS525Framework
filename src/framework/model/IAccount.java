@@ -1,10 +1,12 @@
 package framework.model;
 
+import java.util.function.Predicate;
+
 public interface IAccount {
 
-	public Double deposit(Double amount);
+	public Double deposit(Double amount, Predicate<Double> amountCheck);
 
-	public Double withdraw(Double amount);
+	public Double withdraw(Double amount, Predicate<Double> amountCheck);
 
 	public Double getBalance();
 

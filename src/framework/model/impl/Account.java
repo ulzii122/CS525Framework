@@ -1,5 +1,7 @@
 package framework.model.impl;
 
+import java.util.function.Predicate;
+
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -27,7 +29,7 @@ public class Account implements IAccount, IObserver {
 	private Long version;
 
 	@Override
-	public Double deposit(Double amount) {
+	public Double deposit(Double amount, Predicate<Double> amountCheck) {
 		currentBalance += amount;
 		DAOFacade.getInstance().getDatastore().save(this);
 		setEntry(amount, "DEPOSIT");
@@ -36,7 +38,7 @@ public class Account implements IAccount, IObserver {
 	}
 
 	@Override
-	public Double withdraw(Double amount) {
+	public Double withdraw(Double amount, Predicate<Double> amountCheck) {
 		currentBalance -= amount;
 		DAOFacade.getInstance().getDatastore().save(this);
 		setEntry(amount, "WITHDRAW");

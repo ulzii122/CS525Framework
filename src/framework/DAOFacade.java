@@ -47,6 +47,7 @@ public class DAOFacade {
 			morphia.mapPackage("framework.model");
 			morphia.mapPackage("framework.model.impl");
 			morphia.mapPackage("bank.model");
+			morphia.mapPackage("ccard.model");
 		}
 		return morphia;
 	}
