@@ -31,7 +31,7 @@ public class BankFrm extends javax.swing.JFrame {
 	/****
 	 * init variables in the object
 	 ****/
-	public String accountnr, clientName, street, city, zip, state, accountType, clientType, amountDeposit;
+	public String accountnr, clientName, street, city, zip, state, accountType, clientType, amountDeposit,email;
 	boolean newaccount;
 	public DefaultTableModel model;
 	private JTable JTable1;
@@ -155,7 +155,7 @@ public class BankFrm extends javax.swing.JFrame {
 	javax.swing.JButton JButton_PerAC = new javax.swing.JButton();
 	javax.swing.JButton JButton_CompAC = new javax.swing.JButton();
 	javax.swing.JButton JButton_Deposit = new javax.swing.JButton();
-	javax.swing.JButton JButton_Withdraw = new javax.swing.JButton();
+	public javax.swing.JButton JButton_Withdraw = new javax.swing.JButton();
 	javax.swing.JButton JButton_Addinterest = new javax.swing.JButton();
 	javax.swing.JButton JButton_Exit = new javax.swing.JButton();
 

@@ -27,7 +27,7 @@ public class CardFrm extends javax.swing.JFrame {
 	/****
 	 * init variables in the object
 	 ****/
-	String clientName, street, city, zip, state, accountType, amountDeposit, expdate, ccnumber;
+	public String clientName, street, city, zip, state, accountType, amountDeposit, expdate, ccnumber, email;
 	boolean newaccount;
 	public DefaultTableModel model;
 	private JTable JTable1;
@@ -142,7 +142,7 @@ public class CardFrm extends javax.swing.JFrame {
 	javax.swing.JButton JButton_NewCCAccount = new javax.swing.JButton();
 	javax.swing.JButton JButton_GenBill = new javax.swing.JButton();
 	javax.swing.JButton JButton_Deposit = new javax.swing.JButton();
-	javax.swing.JButton JButton_Withdraw = new javax.swing.JButton();
+	public javax.swing.JButton JButton_Withdraw = new javax.swing.JButton();
 	javax.swing.JButton JButton_Exit = new javax.swing.JButton();
 
 	void exitApplication() {
@@ -220,7 +220,6 @@ public class CardFrm extends javax.swing.JFrame {
 			JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
 			newaccount = false;
 		}
-
 	}
 
 	void JButtonGenerateBill_actionPerformed(java.awt.event.ActionEvent event) {

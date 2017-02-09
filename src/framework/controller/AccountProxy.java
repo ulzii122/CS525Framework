@@ -35,14 +35,13 @@ public class AccountProxy implements IAccount {
 	}
 
 	private void sendEmailEngine(Predicate<Double> amountCheck, Double amount, Double bal) {
-		if (acc.getCustomer() instanceof Company)
-			sendEmail();
-		else if (amountCheck.test(amount) || bal < 0)
-			sendEmail();
+		if ((acc.getCustomer() instanceof Company) || amountCheck.test(amount) || bal < 0)
+			sendEmail(amount);
 	}
 
-	private void sendEmail() {
-
+	private void sendEmail(Double amount) {
+		// TODO send email to customer:
+		System.out.println("Transaction with amount " + amount + " USD has been exexucted on " + acc.getAccountNum());
 	}
 
 	@Override

@@ -1,13 +1,6 @@
 package ccard.view;
 
-import javax.swing.JOptionPane;
-
-import ccard.model.BronzeCard;
-import ccard.model.GoldCard;
-import ccard.model.SilverCard;
-import framework.controller.Finco;
-import framework.controller.IFinco;
-import framework.model.IAccount;
+import ccard.controller.CardController;
 
 public class JDialog_Withdraw extends javax.swing.JDialog {
 
@@ -17,12 +10,13 @@ public class JDialog_Withdraw extends javax.swing.JDialog {
 	private static final long serialVersionUID = 1L;
 	private CardFrm parentframe;
 	private String name;
-	private IFinco finco = new Finco();
+	private CardController controller;
 
 	public JDialog_Withdraw(CardFrm parent, String aname) {
 		super(parent);
 		parentframe = parent;
 		name = aname;
+		controller = new CardController(parent);
 
 		setTitle("Charge Account");
 		setModal(true);
@@ -79,22 +73,10 @@ public class JDialog_Withdraw extends javax.swing.JDialog {
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event) {
 		if (JTextField_AMT.getText() != null && !JTextField_AMT.getText().trim().equals("")) {
 			parentframe.amountDeposit = JTextField_AMT.getText();
-			Double deposit = Double.parseDouble(parentframe.amountDeposit);
+			Double amount = Double.parseDouble(parentframe.amountDeposit);
 
-			IAccount acc = finco.getDataStore().find(GoldCard.class).field("accountNum").equal(name).get();
-			if (acc == null)
-				acc = finco.getDataStore().find(SilverCard.class).field("accountNum").equal(name).get();
-			if (acc == null)
-				acc = finco.getDataStore().find(BronzeCard.class).field("accountNum").equal(name).get();
-
-			Double currentamount = finco.withdraw(deposit, acc, (x -> x >= 400));
-			parentframe.model.setValueAt(String.valueOf(currentamount), parentframe.selection, 4);
-
-			if (currentamount < 0) {
-				JOptionPane.showMessageDialog(parentframe.JButton_Withdraw,
-						" Account " + name + " : balance is negative: $" + String.valueOf(currentamount) + " !",
-						"Warning: negative balance", JOptionPane.WARNING_MESSAGE);
-			}
+			// =========Call Card Controller to withdraw:
+			controller.withdraw(name, amount);
 		}
 		dispose();
 	}

@@ -1,24 +1,17 @@
 package ccard.view;
 
-import java.awt.Frame;
-
-import ccard.model.BronzeCard;
-import ccard.model.CreditCard;
-import ccard.model.GoldCard;
-import ccard.model.SilverCard;
-import framework.controller.Finco;
-import framework.controller.IFinco;
-import framework.model.IAccount;
-import framework.model.impl.Customer;
+import ccard.controller.CardController;
 
 public class JDialogGenBill extends javax.swing.JDialog {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private CardController controller;
 
-	public JDialogGenBill(Frame parent) {
+	public JDialogGenBill(CardFrm parent) {
 		super(parent);
+		controller = new CardController(parent);
 
 		getContentPane().setLayout(null);
 		setSize(405, 367);
@@ -32,32 +25,8 @@ public class JDialogGenBill extends javax.swing.JDialog {
 		getContentPane().add(JButton_OK);
 		JButton_OK.setBounds(156, 276, 96, 24);
 
-		IFinco finco = new Finco();
-		StringBuilder sb = new StringBuilder();
-		CreditCard card = null;
-
-		for (Customer cust : finco.getCustomerList()) {
-			for (IAccount acc : cust.getAccList()) {
-				if (acc instanceof GoldCard) {
-					card = finco.getDataStore().find(GoldCard.class).field("accountNum").equal(acc.getAccountNum())
-							.get();
-				} else if (acc instanceof BronzeCard) {
-					card = finco.getDataStore().find(BronzeCard.class).field("accountNum").equal(acc.getAccountNum())
-							.get();
-				} else if (acc instanceof SilverCard) {
-					card = finco.getDataStore().find(SilverCard.class).field("accountNum").equal(acc.getAccountNum())
-							.get();
-				}
-				if (card != null)
-					sb.append(card.generateReport(cust,
-							(acc instanceof GoldCard ? "Gold" : (acc instanceof SilverCard ? "Silver" : "Bronze"))));
-			}
-		}
-
 		// generate the string for the monthly bill
-
-		JTextField1.setText(sb.toString());
-		// }}
+		JTextField1.setText(controller.generateReport());
 
 		// {{REGISTER_LISTENERS
 		SymAction lSymAction = new SymAction();
